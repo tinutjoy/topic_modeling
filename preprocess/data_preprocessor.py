@@ -33,7 +33,7 @@ class DataPreprocessor:
             self.stop_words = custom_stop_words
         self.tokenizer = tokenizer
 
-    def tokenize(self, text, pattern=r'\s+', gaps=True):
+    def tokenize(self, text, pattern=r'\s+', gaps=True) -> List[str]:
         """
         Tokenize the sentences.
         """
@@ -41,20 +41,20 @@ class DataPreprocessor:
             self.tokenizer = RegexpTokenizer(pattern=pattern, gaps=gaps)
         return [token.strip() for token in self.tokenizer.tokenize(text)]
 
-    def remove_stopwords(self, tokens):
+    def remove_stopwords(self, tokens) -> List[str]:
         """
         removes stop words.
         """
         return [token for token in tokens if token not in self.stop_words]
 
-    def stem_tokens(self, tokens):
+    def stem_tokens(self, tokens) -> List[str]:
         """
         lemmatize the tokens.
         """
         return [self.stemmer.stem(token) for token in tokens]
 
     @staticmethod
-    def clean_text(text):
+    def clean_text(text) -> str:
         """
         cleans the raw text by removing punctuations.
         """
@@ -62,7 +62,7 @@ class DataPreprocessor:
         return text.lower().translate(remove_punc)
 
     @staticmethod
-    def remove_short_tokens(tokens):
+    def remove_short_tokens(tokens) -> List[str]:
         """
         removes short tokens.
         """
