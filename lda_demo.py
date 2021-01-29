@@ -11,14 +11,16 @@ from preprocess.data_preprocessor import DataPreprocessor
 from features.feature_extractor import FeatureExtractor
 from models.lda_topic_model import LDATopicModel
 
+# TODO(@tinu) Move to set up.
 download('stopwords', quiet=True)
 
 
 def demo_lda(data: List[str]) -> None:
-    test_folder = tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parent.as_posix())
+    # TODO(@tinu) Handle this better, create the results folder somewhere else.
+    results_folder = tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parent.as_posix())
     preprocessed_data = DataPreprocessor().process_text(data)
-    corpus_bow, corpus_dictionary = FeatureExtractor(test_folder.name).generate_bow_features(preprocessed_data)
-    model = LDATopicModel(num_topics=20, local_path=test_folder.name).fit(corpus_bow, corpus_dictionary)
+    corpus_bow, corpus_dictionary = FeatureExtractor(results_folder.name).generate_bow_features(preprocessed_data)
+    model = LDATopicModel(num_topics=20, local_path=results_folder.name).fit(corpus_bow, corpus_dictionary)
     # TODO(@tinu) Provide a better way to consume/represent the output.
     print(json.dumps(model.print_topics(num_topics=20)))
 
@@ -30,6 +32,7 @@ def demo_lda(data: List[str]) -> None:
     predictions = model.get_document_topics(bow_corpus)
     # TODO(@tinu) Provide a better way to represent the output.
     print(predictions)
+    results_folder.cleanup()
 
 
 if __name__ == '__main__':
