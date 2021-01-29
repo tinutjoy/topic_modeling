@@ -31,7 +31,7 @@ class LDATopicModel:
         return ldamulticore.LdaMulticore(corpus=bow_corpus, id2word=data_dictionary,
                                          num_topics=self.num_topics, **self.model_params)
 
-    def save(self,  model, model_name: str = None):
+    def save(self,  model, model_name: str = None) -> None:
         model_path = os.path.join(self.local_path, "model")
         os.makedirs(model_path, exist_ok=True)
         if model_name is None:
