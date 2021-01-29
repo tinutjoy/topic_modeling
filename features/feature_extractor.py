@@ -35,7 +35,7 @@ class FeatureExtractor:
         docs_corpus = [docs_dict.doc2bow(doc) for doc in data_words_bigrams]
         return docs_corpus, docs_dict
 
-    def save_dictionary_corpus(self, dictionary, corpus):
+    def save_dictionary_corpus(self, dictionary, corpus) -> None:
         os.makedirs(self.local_path, exist_ok=True)
         dict_path = os.path.join(self.local_path, "dictionary.gensim")
         corpus_path = os.path.join(self.local_path,  "corpus.mm")
