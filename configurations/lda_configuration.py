@@ -1,7 +1,7 @@
 """See https://radimrehurek.com/gensim/models/ldamulticore.html for more info on parameters"""
 lda_model = {
     'model_parameters': {
-        'workers': 1,
+        'workers': 4,
         'chunksize': 20,
         'passes': 10,
         'eval_every': 10,
