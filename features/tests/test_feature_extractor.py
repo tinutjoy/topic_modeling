@@ -14,8 +14,8 @@ test_documents = [["Tom", "saw", "a", "duck"], ["He", "shot", "the", "duck"]]
 dict_expected_filtered: Dict[Any, Any] = {}
 bow_expected_filtered: List[List[Any]] = [[], []]
 
-bow_expected_2 = [[(0, 1), (1, 1), (2, 1), (3, 1)], [(2, 1), (4, 1), (5, 1), (6, 1)]]
-dict_expected_2 = {0: 'Tom', 1: 'a', 2: 'duck', 3: 'saw', 4: 'He', 5: 'shot', 6: 'the'}
+bow_expected_no_filter = [[(0, 1), (1, 1), (2, 1), (3, 1)], [(2, 1), (4, 1), (5, 1), (6, 1)]]
+dict_expected_no_filter = {0: 'Tom', 1: 'a', 2: 'duck', 3: 'saw', 4: 'He', 5: 'shot', 6: 'the'}
 
 
 class TestFeatureExtractor(unittest.TestCase):
@@ -31,8 +31,8 @@ class TestFeatureExtractor(unittest.TestCase):
         self.assertEqual(bow_actual, bow_expected_filtered)
         self.assertEqual(dict(dict_actual), dict_expected_filtered)
         bow_actual, dict_actual = self.extractor.generate_bow_features(test_documents, filter_vocab=False)
-        self.assertEqual(bow_actual, bow_expected_2)
-        self.assertEqual(dict(dict_actual), dict_expected_2)
+        self.assertEqual(bow_actual, bow_expected_no_filter)
+        self.assertEqual(dict(dict_actual), dict_expected_no_filter)
 
     def test_save_dictionary_corpus(self):
         """
